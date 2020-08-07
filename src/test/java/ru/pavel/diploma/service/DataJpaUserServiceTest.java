@@ -15,6 +15,7 @@ import java.util.Objects;
 
 import static org.junit.Assert.assertThrows;
 import static ru.pavel.diploma.UserTestData.*;
+import ru.pavel.diploma.repository.JpaUtil;
 
 public class DataJpaUserServiceTest extends ru.pavel.diploma.service.AbstractServiceTest {
 
@@ -24,9 +25,13 @@ public class DataJpaUserServiceTest extends ru.pavel.diploma.service.AbstractSer
     @Autowired
     private CacheManager cacheManager;
 
+    @Autowired
+    protected JpaUtil jpaUtil;
+
     @Before
     public void setUp() throws Exception {
         Objects.requireNonNull(cacheManager.getCache("users")).clear();
+        jpaUtil.clear2ndLevelHibernateCache();
     }
 
     @Test

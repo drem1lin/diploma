@@ -21,28 +21,28 @@ public class DishService {
     }
 
     @CacheEvict(value = "dishes", allEntries = true)
-    public Dish create(Dish dish) {
+    public Dish create(Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");
-        return repository.save(dish);
+        return repository.save(dish, restaurantId);
     }
 
     @CacheEvict(value = "dishes", allEntries = true)
-    public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id), id);
+    public void delete(int id, int restaurantId) {
+        checkNotFoundWithId(repository.delete(id, restaurantId), id);
     }
 
-    public Dish get(int id) {
-        return checkNotFoundWithId(repository.get(id), id);
+    public Dish get(int id, int restaurantId) {
+        return checkNotFoundWithId(repository.get(id, restaurantId), id);
     }
 
     @Cacheable("dishes")
-    public List<Dish> getAll() {
-        return repository.getAll();
+    public List<Dish> getAll(int restaurantId) {
+        return repository.getAll(restaurantId);
     }
 
     @CacheEvict(value = "dishes", allEntries = true)
-    public void update(Dish dish) {
+    public void update(Dish dish, int restaurantId) {
         Assert.notNull(dish, "dish must not be null");
-        checkNotFoundWithId(repository.save(dish), dish.id());
+        checkNotFoundWithId(repository.save(dish, restaurantId), dish.id());
     }
 }

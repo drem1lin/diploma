@@ -1,13 +1,10 @@
 package ru.pavel.diploma.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import java.util.Collection;
-import java.util.EnumSet;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = "id", name = "dishes_unique_idx")})
@@ -16,6 +13,12 @@ public class Dish extends AbstractNamedEntity {
     @Column(name = "price", nullable = false)
     @Range(min = 10, max = 5000)
     private int price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+//    @NotNull
+    private Restaurant restaurant;
 
     public Dish() {
     }
@@ -36,4 +39,8 @@ public class Dish extends AbstractNamedEntity {
     public void setPrice(int newPrice) {
         price = newPrice;
     }
+
+    public Restaurant getRestaurant(){return restaurant;}
+
+    public void setRestaurant(Restaurant rest){this.restaurant = rest;}
 }
