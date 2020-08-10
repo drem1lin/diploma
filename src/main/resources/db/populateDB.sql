@@ -16,7 +16,7 @@ INSERT INTO  restaurants (name)
 VALUES ('THE CASTLE'),
        ('RED SQUARE');
 
-INSERT INTO dishes (restaurant_id, name, price)
-VALUES (100002, 'Hamburger', 700),
-       (100002,'French fries', 150),
-       (100003,'Chicken soup', 250);
+INSERT INTO dishes (restaurant_id, name, menuDate, price)
+VALUES (100002, 'Hamburger', '2020-01-30 10:00:00', 700),
+       (100002,'French fries', '2020-01-30 10:00:00', 150),
+       (100003,'Chicken soup', '2020-01-31 10:00:00', 250);

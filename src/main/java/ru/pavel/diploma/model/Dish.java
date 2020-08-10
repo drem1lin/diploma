@@ -5,6 +5,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = "id", name = "dishes_unique_idx")})
@@ -20,16 +22,21 @@ public class Dish extends AbstractNamedEntity {
 //    @NotNull
     private Restaurant restaurant;
 
+    @Column(name = "menuDate", nullable = false)
+    @NotNull
+    private LocalDateTime menuDate;
+
     public Dish() {
     }
 
     public Dish(Dish u) {
-        this(u.getId(), u.getName(), u.getPrice());
+        this(u.getId(), u.getName(), u.getMenuDate() ,u.getPrice());
     }
 
-    public Dish(Integer id, String name, Integer price) {
+    public Dish(Integer id, String name, LocalDateTime date, Integer price) {
         super(id, name);
         this.price = price;
+        this.menuDate = date;
     }
 
     public int getPrice() {
@@ -43,4 +50,8 @@ public class Dish extends AbstractNamedEntity {
     public Restaurant getRestaurant(){return restaurant;}
 
     public void setRestaurant(Restaurant rest){this.restaurant = rest;}
+
+    public LocalDateTime getMenuDate() {return menuDate;}
+
+    public void setMenuDate(LocalDateTime menuDate) {this.menuDate = menuDate;}
 }

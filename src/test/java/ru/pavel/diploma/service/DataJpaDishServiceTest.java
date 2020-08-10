@@ -8,9 +8,11 @@ import ru.pavel.diploma.model.Dish;
 import ru.pavel.diploma.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
+import java.time.Month;
 import java.util.List;
 import java.util.Objects;
 
+import static java.time.LocalDateTime.of;
 import static org.junit.Assert.assertThrows;
 import static ru.pavel.diploma.DishTestData.*;
 import static ru.pavel.diploma.RestaurantTestData.THE_CASTLE_ID;
@@ -75,7 +77,7 @@ public class DataJpaDishServiceTest extends ru.pavel.diploma.service.AbstractSer
 
     @Test
     public void createWithException() throws Exception {
-        validateRootCause(() -> service.create(new Dish(null, "  ", 1000), THE_CASTLE_ID), ConstraintViolationException.class);
-        validateRootCause(() -> service.create(new Dish(null, "User", 5001), THE_CASTLE_ID), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Dish(null, "  ",of(2020, Month.JANUARY, 30, 10, 0), 1000), THE_CASTLE_ID), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Dish(null, "User",of(2020, Month.JANUARY, 30, 10, 0), 5001), THE_CASTLE_ID), ConstraintViolationException.class);
     }
 }
