@@ -54,4 +54,14 @@ public class Dish extends AbstractNamedEntity {
     public LocalDateTime getMenuDate() {return menuDate;}
 
     public void setMenuDate(LocalDateTime menuDate) {this.menuDate = menuDate;}
+
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "id=" + id +
+                ", name=" + name +
+                ", price='" + price + '\'' +
+                ", menuDate=" + menuDate +
+                '}';
+    }
 }
