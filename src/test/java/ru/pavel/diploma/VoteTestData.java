@@ -16,8 +16,8 @@ public class VoteTestData {
     public static final int USER_VOTE_2_ID = START_SEQ + 9;
 
     public static final Vote USER_VOTE_1 = new Vote(USER_VOTE_1_ID, of(2020, Month.JANUARY, 30, 10, 0));
-    public static final Vote USER_VOTE_2 = new Vote(USER_VOTE_2_ID, of(2020, Month.JANUARY, 31, 12, 0));
-    public static final Vote ADMIN_VOTE = new Vote(ADMIN_VOTE_ID, of(2020, Month.JANUARY, 30, 10, 0));
+    public static final Vote ADMIN_VOTE = new Vote(ADMIN_VOTE_ID, of(2020, Month.JANUARY, 30, 12, 0));
+    public static final Vote USER_VOTE_2 = new Vote(USER_VOTE_2_ID, of(2020, Month.JANUARY, 31, 10, 0));
 
     public static Vote getNew() {
         return new Vote(null, of(2020, Month.JANUARY, 30, 17, 0));

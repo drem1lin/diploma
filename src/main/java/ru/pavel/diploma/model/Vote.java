@@ -29,7 +29,7 @@ public class Vote extends AbstractBaseEntity{
 
     public Vote(Vote v)
     {
-        this(null, v.getVoteDate());
+        this(v.getId(), v.getVoteDate());
     }
 
     public Vote(Integer id, LocalDateTime voteDate)
@@ -67,8 +67,6 @@ public class Vote extends AbstractBaseEntity{
         return "Vote{" +
                 "id=" + id +
                 ", voteDate" + voteDate +
-                ", user='" + user + '\'' +
-                ", restaurant=" + restaurant +
                 '}';
     }
 }
