@@ -38,4 +38,8 @@ public class VoteService {
         Assert.notNull(vote, "dish must not be null");
         checkNotFoundWithId(repository.save(vote, userId, restaurantId), vote.id());
     }
+
+    public Vote getWithUserAndRestaurant(int id, int userId, int restaurantId) {
+        return checkNotFoundWithId(repository.getWithUserAndRestaurant(id, userId, restaurantId), id);
+    }
 }

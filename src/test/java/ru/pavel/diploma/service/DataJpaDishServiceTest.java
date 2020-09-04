@@ -84,8 +84,7 @@ public class DataJpaDishServiceTest extends ru.pavel.diploma.service.AbstractSer
     @Test
     public void getWithRestaurant() throws Exception {
         Dish dish = service.getWithRestaurant(HAMBURGER_ID, THE_CASTLE_ID);
-        DISH_MATCHER.assertMatch(dish, HAMBURGER);
-        RestaurantTestData.RESTAURANT_MATCHER.assertMatch(dish.getRestaurant(), RestaurantTestData.THE_CASTLE);
+        DISH_WITH_RESTAURANT_MATCHER.assertMatch(dish, HAMBURGER);
     }
 
     @Test

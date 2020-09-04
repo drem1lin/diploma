@@ -5,11 +5,13 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"voteDate", "user_id"}, name = "votes_unique_idx")})
-public class Vote extends AbstractBaseEntity{
+public class Vote extends AbstractBaseEntity {
 
     @Column(name = "voteDate", nullable = false)
     @NotNull
@@ -25,21 +27,28 @@ public class Vote extends AbstractBaseEntity{
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
-    public Vote(){}
+    public Vote() {
+    }
 
-    public Vote(Vote v)
-    {
+    public Vote(Vote v) {
         this(v.getId(), v.getVoteDate());
     }
 
-    public Vote(Integer id, LocalDateTime voteDate)
-    {
+    public Vote(Integer id, LocalDateTime voteDate) {
         super(id);
         this.voteDate = voteDate;
     }
 
     public LocalDateTime getVoteDate() {
         return voteDate;
+    }
+
+    public LocalDate getDate() {
+        return voteDate.toLocalDate();
+    }
+
+    public LocalTime getTime() {
+        return voteDate.toLocalTime();
     }
 
     public void setVoteDate(LocalDateTime voteDate) {

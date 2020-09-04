@@ -70,7 +70,7 @@ public class DataJpaRestaurantServiceTest extends ru.pavel.diploma.service.Abstr
     @Test
     void getWithDishes() throws Exception {
         Restaurant restaurant = service.getWithDishes(RED_SQUARE_ID);
-        RESTAURANT_WITH_MEALS_MATCHER.assertMatch(restaurant, RED_SQUARE);
+        RESTAURANT_WITH_DISHES_MATCHER.assertMatch(restaurant, RED_SQUARE);
     }
 
     @Test

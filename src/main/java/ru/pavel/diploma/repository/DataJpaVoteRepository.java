@@ -43,4 +43,8 @@ public class DataJpaVoteRepository {
     public List<Vote> getAll() {
         return crudVoteRepository.findAll();
     }
+
+    public Vote getWithUserAndRestaurant(int id, int userId, int restaurantId){
+        return crudVoteRepository.getWithUserAndRestaurant(id,restaurantId,userId);
+    }
 }

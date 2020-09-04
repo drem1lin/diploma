@@ -30,6 +30,9 @@ public class Restaurant extends AbstractNamedEntity {
         this.menu = menu;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Vote> votes;
+
     @Override
     public String toString() {
         return "Restaurant{" +

@@ -1,5 +1,6 @@
 package ru.pavel.diploma.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -24,6 +25,7 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
     @Query("SELECT d from Dish d WHERE d.restaurant.id=:restaurantId AND d.menuDate=:Date ORDER BY d.name DESC")
     List<Dish> getToday(@Param("Date") LocalDate Date, @Param("restaurantId") int restaurantId);
 
+    @EntityGraph(attributePaths = {"restaurant"}, type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT d FROM Dish d JOIN FETCH d.restaurant WHERE d.id = ?1 and d.restaurant.id = ?2")
     Dish getWithRestaurant(int id, int restaurantId);
 }

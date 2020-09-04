@@ -1,9 +1,12 @@
 package ru.pavel.diploma.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import ru.pavel.diploma.UserTestData;
 import ru.pavel.diploma.VoteTestData;
+import ru.pavel.diploma.model.User;
 import ru.pavel.diploma.model.Vote;
 import ru.pavel.diploma.util.exception.NotFoundException;
 
@@ -12,6 +15,7 @@ import java.util.List;
 
 import static java.time.LocalDateTime.of;
 import static org.junit.Assert.assertThrows;
+import static ru.pavel.diploma.RestaurantTestData.RED_SQUARE_ID;
 import static ru.pavel.diploma.RestaurantTestData.THE_CASTLE_ID;
 import static ru.pavel.diploma.UserTestData.*;
 import static ru.pavel.diploma.VoteTestData.*;
@@ -72,5 +76,17 @@ public class DataJpaVoteServiceTest extends ru.pavel.diploma.service.AbstractSer
     public void getAll() throws Exception {
         List<Vote> all = service.getAll();
         VOTE_MATCHER.assertMatch(all, USER_VOTE_1, ADMIN_VOTE, USER_VOTE_2);
+    }
+
+    @Test
+    void getWithUserAndRestaurant() throws Exception {
+        Vote vote = service.getWithUserAndRestaurant(USER_VOTE_1_ID, USER_ID, THE_CASTLE_ID);
+        VOTE_WITH_ALL_MATCHER.assertMatch(vote, USER_VOTE_1);
+    }
+
+    @Test
+    void getWithVotesNotFound() throws Exception {
+        Assertions.assertThrows(NotFoundException.class,
+                () -> service.getWithUserAndRestaurant(NOT_FOUND, NOT_FOUND, NOT_FOUND));
     }
 }

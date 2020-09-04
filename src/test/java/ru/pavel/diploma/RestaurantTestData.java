@@ -10,11 +10,11 @@ import static ru.pavel.diploma.model.AbstractBaseEntity.START_SEQ;
 
 public class RestaurantTestData {
 
-    public static TestMatcher<Restaurant> RESTAURANT_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(Restaurant.class, "menu");
-    public static TestMatcher<Restaurant> RESTAURANT_WITH_MEALS_MATCHER =
+    public static TestMatcher<Restaurant> RESTAURANT_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(Restaurant.class, "menu", "votes");
+    public static TestMatcher<Restaurant> RESTAURANT_WITH_DISHES_MATCHER =
             TestMatcher.usingAssertions(Restaurant.class,
                     (a, e) -> assertThat(a).usingRecursiveComparison()
-                            .ignoringFields("menu.restaurant").ignoringAllOverriddenEquals().isEqualTo(e),
+                            .ignoringFields("menu.restaurant", "votes").ignoringAllOverriddenEquals().isEqualTo(e),
                     (a, e) -> {
                         throw new UnsupportedOperationException();
                     });
