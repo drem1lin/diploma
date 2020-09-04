@@ -29,4 +29,8 @@ public class DataJpaRestaurantRepository {
     public List<Restaurant> getAll() {
         return crudRepository.findAll();
     }
+
+    public Restaurant getWithDishes(int id) {
+        return crudRepository.getWithDishes(id);
+    }
 }

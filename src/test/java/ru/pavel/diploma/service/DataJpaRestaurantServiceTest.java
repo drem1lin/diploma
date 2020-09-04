@@ -1,12 +1,12 @@
 package ru.pavel.diploma.service;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.pavel.diploma.model.Restaurant;
 import ru.pavel.diploma.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
-
 import java.util.List;
 
 import static org.junit.Assert.assertThrows;
@@ -65,5 +65,17 @@ public class DataJpaRestaurantServiceTest extends ru.pavel.diploma.service.Abstr
     @Test
     public void createWithException() throws Exception {
         validateRootCause(() -> service.create(new Restaurant(null, "  ")), ConstraintViolationException.class);
+    }
+
+    @Test
+    void getWithDishes() throws Exception {
+        Restaurant restaurant = service.getWithDishes(RED_SQUARE_ID);
+        RESTAURANT_WITH_MEALS_MATCHER.assertMatch(restaurant, RED_SQUARE);
+    }
+
+    @Test
+    void getWithDishesNotFound() throws Exception {
+        Assertions.assertThrows(NotFoundException.class,
+                () -> service.getWithDishes(1));
     }
 }

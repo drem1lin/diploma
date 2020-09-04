@@ -1,6 +1,6 @@
 package ru.pavel.diploma.service;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import ru.pavel.diploma.VoteTestData;

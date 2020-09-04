@@ -1,18 +1,18 @@
 package ru.pavel.diploma.service;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
+import ru.pavel.diploma.RestaurantTestData;
 import ru.pavel.diploma.model.Dish;
 import ru.pavel.diploma.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
-import java.util.Objects;
 
-import static java.time.LocalDateTime.of;
+import static java.time.LocalDate.of;
 import static org.junit.Assert.assertThrows;
 import static ru.pavel.diploma.DishTestData.*;
 import static ru.pavel.diploma.RestaurantTestData.THE_CASTLE_ID;
@@ -21,14 +21,6 @@ public class DataJpaDishServiceTest extends ru.pavel.diploma.service.AbstractSer
 
     @Autowired
     protected DishService service;
-
-    @Autowired
-    private CacheManager cacheManager;
-
-    @Before
-    public void setUp() throws Exception {
-        Objects.requireNonNull(cacheManager.getCache("dishes")).clear();
-    }
 
     @Test
     public void create() throws Exception {
@@ -77,7 +69,29 @@ public class DataJpaDishServiceTest extends ru.pavel.diploma.service.AbstractSer
 
     @Test
     public void createWithException() throws Exception {
-        validateRootCause(() -> service.create(new Dish(null, "  ",of(2020, Month.JANUARY, 30, 10, 0), 1000), THE_CASTLE_ID), ConstraintViolationException.class);
-        validateRootCause(() -> service.create(new Dish(null, "User",of(2020, Month.JANUARY, 30, 10, 0), 5001), THE_CASTLE_ID), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Dish(null, "  ", of(2020, Month.JANUARY, 30), 1000), THE_CASTLE_ID), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Dish(null, "User", of(2020, Month.JANUARY, 30), 5001), THE_CASTLE_ID), ConstraintViolationException.class);
     }
+
+    @Test
+    public void getToday() throws Exception {
+        DISH_MATCHER.assertMatch(service.getToday(
+                LocalDate.of(2020, Month.JANUARY, 30),
+                THE_CASTLE_ID),
+                HAMBURGER, FRENCH_FRIES);
+    }
+
+    @Test
+    public void getWithRestaurant() throws Exception {
+        Dish dish = service.getWithRestaurant(HAMBURGER_ID, THE_CASTLE_ID);
+        DISH_MATCHER.assertMatch(dish, HAMBURGER);
+        RestaurantTestData.RESTAURANT_MATCHER.assertMatch(dish.getRestaurant(), RestaurantTestData.THE_CASTLE);
+    }
+
+    @Test
+    public void getWithRestaurantNotFound() throws Exception {
+        Assertions.assertThrows(NotFoundException.class,
+                () -> service.getWithRestaurant(NOT_FOUND, THE_CASTLE_ID));
+    }
+
 }

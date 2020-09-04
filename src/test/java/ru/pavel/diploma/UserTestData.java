@@ -8,7 +8,7 @@ import java.util.Collections;
 import static ru.pavel.diploma.model.AbstractBaseEntity.START_SEQ;
 
 public class UserTestData {
-    public static TestMatcher<User> USER_MATCHER = TestMatcher.usingFieldsWithIgnoringComparator(User.class, "roles");
+    public static TestMatcher<User> USER_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(User.class, "roles");
 
     public static final int NOT_FOUND = 10;
     public static final int USER_ID = START_SEQ;

@@ -2,11 +2,7 @@ package ru.pavel.diploma;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.Month;
 import java.util.Arrays;
-import java.util.List;
 
 public class SpringMain {
     public static void main(String[] args) {

@@ -21,6 +21,7 @@
         <heap>1</heap>
     </cache-template>
 
+    <!--
     <cache alias="users" uses-template="singleNonExpiryCache"/>
-    <cache alias="dishes" uses-template="singleNonExpiryCache"/>
+    <cache alias="dishes" uses-template="singleNonExpiryCache"/> -->
 </config>

@@ -8,7 +8,7 @@ import static java.time.LocalDateTime.of;
 import static ru.pavel.diploma.model.AbstractBaseEntity.START_SEQ;
 
 public class VoteTestData {
-    public static TestMatcher<Vote> VOTE_MATCHER = TestMatcher.usingFieldsWithIgnoringComparator(Vote.class, "user", "restaurant");
+    public static TestMatcher<Vote> VOTE_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(Vote.class, "user", "restaurant");
 
     public static final int NOT_FOUND = 100;
     public static final int USER_VOTE_1_ID = START_SEQ + 7;

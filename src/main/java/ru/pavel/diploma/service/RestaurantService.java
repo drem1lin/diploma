@@ -38,4 +38,8 @@ public class RestaurantService {
         Assert.notNull(restaurant, "restaurant must not be null");
         checkNotFoundWithId(repository.save(restaurant), restaurant.id());
     }
+
+    public Restaurant getWithDishes(int id) {
+        return checkNotFoundWithId(repository.getWithDishes(id), id);
+    }
 }

@@ -1,9 +1,7 @@
 package ru.pavel.diploma.service;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
 import ru.pavel.diploma.model.Role;
 import ru.pavel.diploma.model.User;
@@ -11,28 +9,14 @@ import ru.pavel.diploma.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
 import java.util.List;
-import java.util.Objects;
 
 import static org.junit.Assert.assertThrows;
 import static ru.pavel.diploma.UserTestData.*;
-import ru.pavel.diploma.repository.JpaUtil;
 
 public class DataJpaUserServiceTest extends ru.pavel.diploma.service.AbstractServiceTest {
 
     @Autowired
     protected UserService service;
-
-    @Autowired
-    private CacheManager cacheManager;
-
-    @Autowired
-    protected JpaUtil jpaUtil;
-
-    @Before
-    public void setUp() throws Exception {
-        Objects.requireNonNull(cacheManager.getCache("users")).clear();
-        jpaUtil.clear2ndLevelHibernateCache();
-    }
 
     @Test
     public void create() throws Exception {

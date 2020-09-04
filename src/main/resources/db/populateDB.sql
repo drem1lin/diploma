@@ -17,9 +17,9 @@ VALUES ('THE CASTLE'),
        ('RED SQUARE');
 
 INSERT INTO dishes (restaurant_id, name, menuDate, price)
-VALUES (100002, 'Hamburger', '2020-01-30 10:00:00', 700),
-       (100002,'French fries', '2020-01-30 10:00:00', 150),
-       (100003,'Chicken soup', '2020-01-31 10:00:00', 250);
+VALUES (100002, 'Hamburger', '2020-01-30', 700),
+       (100002, 'French fries', '2020-01-30', 150),
+       (100003, 'Chicken soup', '2020-01-31', 250);
 
 INSERT INTO votes (voteDate, user_id, restaurant_id)
 VALUES ('2020-01-30 10:00:00', 100000, 100002),

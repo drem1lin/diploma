@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pavel.diploma.model.Dish;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -12,7 +13,7 @@ public class DataJpaDishRepository {
     private final CrudDishRepository crudDishRepository;
     private final CrudRestaurantRepository crudRestaurantRepository;
 
-    public DataJpaDishRepository(CrudDishRepository crudRepository,CrudRestaurantRepository crudRestaurantRepository) {
+    public DataJpaDishRepository(CrudDishRepository crudRepository, CrudRestaurantRepository crudRestaurantRepository) {
         this.crudDishRepository = crudRepository;
         this.crudRestaurantRepository = crudRestaurantRepository;
     }
@@ -38,5 +39,13 @@ public class DataJpaDishRepository {
 
     public List<Dish> getAll(int restaurantId) {
         return crudDishRepository.getAll(restaurantId);
+    }
+
+    public List<Dish> getToday(int restaurantId, LocalDate date) {
+        return crudDishRepository.getToday(date, restaurantId);
+    }
+
+    public Dish getWithRestaurant(int id, int restaurantId) {
+        return crudDishRepository.getWithRestaurant(id, restaurantId);
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.pavel.diploma.model.Dish;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Transactional(readOnly = true)
@@ -19,6 +21,9 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
     @Query("SELECT d FROM Dish d WHERE d.restaurant.id=:restaurantId")
     List<Dish> getAll(@Param("restaurantId") int restaurantId);
 
+    @Query("SELECT d from Dish d WHERE d.restaurant.id=:restaurantId AND d.menuDate=:Date ORDER BY d.name DESC")
+    List<Dish> getToday(@Param("Date") LocalDate Date, @Param("restaurantId") int restaurantId);
+
     @Query("SELECT d FROM Dish d JOIN FETCH d.restaurant WHERE d.id = ?1 and d.restaurant.id = ?2")
-    Dish getWithUser(int id, int userId);
+    Dish getWithRestaurant(int id, int restaurantId);
 }
