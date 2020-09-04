@@ -1,5 +1,6 @@
 package ru.pavel.diploma.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -80,5 +81,17 @@ public class DataJpaUserServiceTest extends ru.pavel.diploma.service.AbstractSer
         validateRootCause(() -> service.create(new User(null, "  ", "mail@yandex.ru", "password", Role.USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null, "User", "  ", "password", Role.USER)), ConstraintViolationException.class);
         validateRootCause(() -> service.create(new User(null, "User", "mail@yandex.ru", "  ", Role.USER)), ConstraintViolationException.class);
+    }
+
+    @Test
+    void getWithVotes() throws Exception {
+        User admin = service.getWithVotes(ADMIN_ID);
+        USER_WITH_VOTES_MATCHER.assertMatch(admin, ADMIN);
+    }
+
+    @Test
+    void getWithVotesNotFound() throws Exception {
+        Assertions.assertThrows(NotFoundException.class,
+                () -> service.getWithVotes(NOT_FOUND));
     }
 }

@@ -34,4 +34,8 @@ public class DataJpaUserRepository {
     public List<User> getAll() {
         return crudRepository.findAll(SORT_NAME_EMAIL);
     }
+
+    public User getWithVotes(int id) {
+        return crudRepository.getWithMeals(id);
+    }
 }
