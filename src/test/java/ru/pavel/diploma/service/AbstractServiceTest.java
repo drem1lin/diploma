@@ -6,7 +6,7 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import ru.pavel.diploma.TimingExtension;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.pavel.diploma.util.ValidationUtil.getRootCause;
 
 @SpringJUnitConfig(locations = {

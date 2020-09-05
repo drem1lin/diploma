@@ -13,7 +13,7 @@ import java.time.Month;
 import java.util.List;
 
 import static java.time.LocalDate.of;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.pavel.diploma.DishTestData.*;
 import static ru.pavel.diploma.RestaurantTestData.THE_CASTLE_ID;
 

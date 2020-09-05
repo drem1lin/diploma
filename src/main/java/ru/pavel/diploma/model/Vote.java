@@ -1,7 +1,14 @@
 package ru.pavel.diploma.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
+import ru.pavel.diploma.View;
+import ru.pavel.diploma.util.DateTimeUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,16 +22,21 @@ public class Vote extends AbstractBaseEntity {
 
     @Column(name = "voteDate", nullable = false)
     @NotNull
+    @JsonView(View.JsonREST.class)
     private LocalDateTime voteDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference("User_Back_reference")
+    @NotNull(groups = View.Persist.class)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonBackReference("Restaurant_Back_reference")
+    @NotNull(groups = View.Persist.class)
     private Restaurant restaurant;
 
     public Vote() {
@@ -69,6 +81,18 @@ public class Vote extends AbstractBaseEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @JsonGetter
+    @JsonView(View.JsonUI.class)
+    @JsonFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
+    public LocalDateTime getDateTimeUI() {
+        return voteDate;
+    }
+
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
+    public void setDateTimeUI(LocalDateTime dateTime) {
+        this.voteDate = dateTime;
     }
 
     @Override

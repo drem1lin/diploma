@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static ru.pavel.diploma.TestUtil.readListFromJsonMvcResult;
 
 public class TestMatcher<T> {
     private final Class<T> clazz;
@@ -47,16 +48,17 @@ public class TestMatcher<T> {
         iterableAssertion.accept(actual, expected);
     }
 
-    /*public ResultMatcher contentJson(T expected) {
+    public ResultMatcher contentJson(T expected) {
         return result -> assertMatch(TestUtil.readFromJsonMvcResult(result, clazz), expected);
     }
 
-    public ResultMatcher contentJson(T... expected) {
+    @SafeVarargs
+    public final ResultMatcher contentJson(T... expected) {
         return contentJson(List.of(expected));
     }
 
     public ResultMatcher contentJson(Iterable<T> expected) {
         return result -> assertMatch(readListFromJsonMvcResult(result, clazz), expected);
-    }*/
+    }
 }
 

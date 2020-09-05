@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import ru.pavel.diploma.UserTestData;
 import ru.pavel.diploma.VoteTestData;
-import ru.pavel.diploma.model.User;
 import ru.pavel.diploma.model.Vote;
 import ru.pavel.diploma.util.exception.NotFoundException;
 
@@ -14,14 +12,14 @@ import java.time.Month;
 import java.util.List;
 
 import static java.time.LocalDateTime.of;
-import static org.junit.Assert.assertThrows;
-import static ru.pavel.diploma.RestaurantTestData.*;
-import static ru.pavel.diploma.UserTestData.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static ru.pavel.diploma.RestaurantTestData.RED_SQUARE_ID;
+import static ru.pavel.diploma.RestaurantTestData.THE_CASTLE_ID;
+import static ru.pavel.diploma.UserTestData.ADMIN_ID;
+import static ru.pavel.diploma.UserTestData.USER_ID;
 import static ru.pavel.diploma.VoteTestData.*;
-import static ru.pavel.diploma.VoteTestData.NOT_FOUND;
-import static ru.pavel.diploma.VoteTestData.getNew;
 
-public class DataJpaVoteServiceTest extends ru.pavel.diploma.service.AbstractServiceTest{
+public class DataJpaVoteServiceTest extends ru.pavel.diploma.service.AbstractServiceTest {
 
     @Autowired
     VoteService service;

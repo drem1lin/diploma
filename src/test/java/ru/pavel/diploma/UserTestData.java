@@ -2,6 +2,7 @@ package ru.pavel.diploma;
 
 import ru.pavel.diploma.model.Role;
 import ru.pavel.diploma.model.User;
+import ru.pavel.diploma.web.json.JsonUtil;
 
 import java.util.Collections;
 import java.util.List;
@@ -42,5 +43,9 @@ public class UserTestData {
         User updated = new User(USER);
         updated.setName("UpdatedName");
         return updated;
+    }
+
+    public static String jsonWithPassword(User user, String passw) {
+        return JsonUtil.writeAdditionProps(user, "password", passw);
     }
 }

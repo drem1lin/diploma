@@ -9,7 +9,7 @@ import ru.pavel.diploma.util.exception.NotFoundException;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.pavel.diploma.RestaurantTestData.*;
 
 public class DataJpaRestaurantServiceTest extends ru.pavel.diploma.service.AbstractServiceTest {
