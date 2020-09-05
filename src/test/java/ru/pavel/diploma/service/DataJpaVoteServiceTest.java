@@ -15,8 +15,7 @@ import java.util.List;
 
 import static java.time.LocalDateTime.of;
 import static org.junit.Assert.assertThrows;
-import static ru.pavel.diploma.RestaurantTestData.RED_SQUARE_ID;
-import static ru.pavel.diploma.RestaurantTestData.THE_CASTLE_ID;
+import static ru.pavel.diploma.RestaurantTestData.*;
 import static ru.pavel.diploma.UserTestData.*;
 import static ru.pavel.diploma.VoteTestData.*;
 import static ru.pavel.diploma.VoteTestData.NOT_FOUND;
@@ -70,6 +69,13 @@ public class DataJpaVoteServiceTest extends ru.pavel.diploma.service.AbstractSer
         Vote updated = VoteTestData.getUpdated();
         service.update(updated, USER_ID, THE_CASTLE_ID);
         VOTE_MATCHER.assertMatch(service.get(USER_VOTE_1_ID, USER_ID, THE_CASTLE_ID), VoteTestData.getUpdated());
+    }
+
+    @Test
+    public void lateUpdate() throws Exception {
+        Vote updated = VoteTestData.getLateUpdated();
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> service.update(updated, ADMIN_ID, RED_SQUARE_ID));
     }
 
     @Test

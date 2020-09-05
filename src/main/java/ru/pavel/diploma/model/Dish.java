@@ -7,7 +7,6 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "dishes", uniqueConstraints = {@UniqueConstraint(columnNames = "id", name = "dishes_unique_idx")})
@@ -31,7 +30,7 @@ public class Dish extends AbstractNamedEntity {
     }
 
     public Dish(Dish u) {
-        this(u.getId(), u.getName(), u.getMenuDate() ,u.getPrice());
+        this(u.getId(), u.getName(), u.getMenuDate(), u.getPrice());
     }
 
     public Dish(Integer id, String name, LocalDate date, Integer price) {
@@ -48,13 +47,21 @@ public class Dish extends AbstractNamedEntity {
         price = newPrice;
     }
 
-    public Restaurant getRestaurant(){return restaurant;}
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
 
-    public void setRestaurant(Restaurant rest){this.restaurant = rest;}
+    public void setRestaurant(Restaurant rest) {
+        this.restaurant = rest;
+    }
 
-    public LocalDate getMenuDate() {return menuDate;}
+    public LocalDate getMenuDate() {
+        return menuDate;
+    }
 
-    public void setMenuDate(LocalDate menuDate) {this.menuDate = menuDate;}
+    public void setMenuDate(LocalDate menuDate) {
+        this.menuDate = menuDate;
+    }
 
     @Override
     public String toString() {

@@ -51,4 +51,10 @@ public class VoteTestData {
         updated.setVoteDate(of(2020, Month.JANUARY, 30, 11, 30));
         return updated;
     }
+
+    public static Vote getLateUpdated() {
+        Vote updated = new Vote(ADMIN_VOTE);
+        updated.setVoteDate(of(2020, Month.JANUARY, 30, 11, 30));
+        return updated;
+    }
 }

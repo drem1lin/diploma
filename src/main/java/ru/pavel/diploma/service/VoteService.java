@@ -1,10 +1,12 @@
 package ru.pavel.diploma.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.pavel.diploma.model.Vote;
 import ru.pavel.diploma.repository.DataJpaVoteRepository;
 
+import java.time.LocalTime;
 import java.util.List;
 
 import static ru.pavel.diploma.util.ValidationUtil.checkNotFoundWithId;
@@ -34,8 +36,12 @@ public class VoteService {
         return repository.getAll();
     }
 
+    @Transactional
     public void update(Vote vote, int userId, int restaurantId) {
-        Assert.notNull(vote, "dish must not be null");
+        Assert.notNull(vote, "vote must not be null");
+        Vote v = repository.get(vote.getId(), userId, restaurantId);
+        checkNotFoundWithId(v, vote.getId());
+        Assert.isTrue(v.getTime().isBefore(LocalTime.of(11,00)), "It's too late to update you vote");
         checkNotFoundWithId(repository.save(vote, userId, restaurantId), vote.id());
     }
 
