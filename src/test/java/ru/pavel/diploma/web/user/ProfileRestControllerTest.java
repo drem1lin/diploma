@@ -7,6 +7,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ru.pavel.diploma.model.Role;
 import ru.pavel.diploma.model.User;
 import ru.pavel.diploma.service.UserService;
 import ru.pavel.diploma.web.AbstractControllerTest;
@@ -50,13 +51,12 @@ class ProfileRestControllerTest extends AbstractControllerTest {
         USER_MATCHER.assertMatch(userService.getAll(), ADMIN);
     }
 
-  /*  @Test
+    @Test
     void register() throws Exception {
-        UserTo newTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword", 1500);
-        User newUser = UserUtil.createNewFromTo(newTo);
+        User newUser = new User(null, "newName", "newemail@ya.ru", "newPassword", Role.USER);
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL + "/register")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(newTo)))
+                .content(JsonUtil.writeValue(newUser)))
                 .andDo(print())
                 .andExpect(status().isCreated());
 
@@ -69,30 +69,31 @@ class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     void update() throws Exception {
-        UserTo updatedTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword", 1500);
+        User updated = new User(null, "newName", "newemail@ya.ru", "newPassword", Role.USER);
         perform(MockMvcRequestBuilders.put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER))
-                .content(JsonUtil.writeValue(updatedTo)))
+                .content(JsonUtil.writeValue(updated)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        USER_MATCHER.assertMatch(userService.get(USER_ID), UserUtil.updateFromTo(new User(USER), updatedTo));
+        User updUser = new User(USER);
+        updUser.updateFrom(updated);
+        USER_MATCHER.assertMatch(userService.get(USER_ID), updUser);
     }
 
     @Test
-    void getWithMeals() throws Exception {
-        assumeDataJpa();
-        perform(MockMvcRequestBuilders.get(REST_URL + "/with-meals")
+    void getWithVotes() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + "/with-votes")
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(USER_WITH_MEALS_MATCHER.contentJson(USER));
+                .andExpect(USER_WITH_VOTES_MATCHER.contentJson(USER));
     }
 
     @Test
     void updateInvalid() throws Exception {
-        UserTo updatedTo = new UserTo(null, null, "password", null, 1500);
+        User updatedTo = new User(null, null, "password", null, Role.USER);
         perform(MockMvcRequestBuilders.put(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER))
@@ -105,7 +106,7 @@ class ProfileRestControllerTest extends AbstractControllerTest {
     @Test
     @Transactional(propagation = Propagation.NEVER)
     void updateDuplicate() throws Exception {
-        UserTo updatedTo = new UserTo(null, "newName", "admin@gmail.com", "newPassword", 1500);
+        User updatedTo = new User(null, "newName", "admin@gmail.com", "newPassword", Role.ADMIN);
         perform(MockMvcRequestBuilders.put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER))
                 .content(JsonUtil.writeValue(updatedTo)))
@@ -113,5 +114,5 @@ class ProfileRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(errorType(VALIDATION_ERROR))
                 .andExpect(detailMessage(EXCEPTION_DUPLICATE_EMAIL));
-    }*/
+    }
 }

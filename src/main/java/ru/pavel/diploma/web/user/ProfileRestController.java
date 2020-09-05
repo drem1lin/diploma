@@ -48,7 +48,7 @@ public class ProfileRestController extends AbstractUserController {
         return "Русский текст";
     }
 
-    @GetMapping("/with-meals")
+    @GetMapping("/with-votes")
     public User getWithVotes(@AuthenticationPrincipal AuthorizedUser authUser) {
         return super.getWithVotes(authUser.getId());
     }

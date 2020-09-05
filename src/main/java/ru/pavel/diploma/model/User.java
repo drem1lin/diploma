@@ -33,7 +33,6 @@ public class User extends AbstractNamedEntity implements HasIdAndEmail {
     @Column(name = "password", nullable = false)
     @NotBlank
     @Size(min = 5, max = 100)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -104,5 +103,12 @@ public class User extends AbstractNamedEntity implements HasIdAndEmail {
                 ", name=" + name +
                 ", roles=" + roles +
                 '}';
+    }
+
+    public User updateFrom(User user) {
+        setName(user.getName());
+        setEmail(user.getEmail().toLowerCase());
+        setPassword(user.getPassword());
+        return user;
     }
 }
