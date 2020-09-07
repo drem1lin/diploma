@@ -32,6 +32,10 @@ public class DishTestData {
     public static final Dish FRENCH_FRIES = new Dish(FRENCH_FRIES_ID, "French fries", of(2020, Month.JANUARY, 30), 150);
     public static final Dish CHICKEN_SOUP = new Dish(CHICKEN_SOUP_ID, "Chicken soup", of(2020, Month.JANUARY, 31), 250);
 
+    public static final List<Dish> DISHES_30_01 = List.of(HAMBURGER, CHICKEN_SOUP);
+    public static final List<Dish> THE_CASTLE_DISHES = List.of(HAMBURGER, FRENCH_FRIES);
+    public static final List<Dish> DISHES_ALL = List.of(HAMBURGER, CHICKEN_SOUP, FRENCH_FRIES);
+
     static {
         HAMBURGER.setRestaurant(THE_CASTLE);
         FRENCH_FRIES.setRestaurant(THE_CASTLE);

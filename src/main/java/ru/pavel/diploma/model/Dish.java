@@ -1,8 +1,11 @@
 package ru.pavel.diploma.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
+import ru.pavel.diploma.View;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,7 +22,8 @@ public class Dish extends AbstractNamedEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-//    @NotNull
+    @JsonBackReference("RDReference")
+    @NotNull(groups = View.Persist.class)
     private Restaurant restaurant;
 
     @Column(name = "menuDate", nullable = false)
