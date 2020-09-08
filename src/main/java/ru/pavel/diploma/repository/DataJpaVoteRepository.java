@@ -21,7 +21,7 @@ public class DataJpaVoteRepository {
 
     @Transactional
     public Vote save(Vote vote, int userId, int restaurantId) {
-        if (!vote.isNew() && get(vote.getId(), userId, restaurantId) == null) {
+        if (!vote.isNew() && get(vote.getId(), userId) == null) {
             return null;
         }
         vote.setUser(crudUserRepository.getOne(userId));
@@ -29,22 +29,21 @@ public class DataJpaVoteRepository {
         return crudVoteRepository.save(vote);
     }
 
-    public boolean delete(int id) {
-        return crudVoteRepository.delete(id) != 0;
+    public boolean delete(int id, int userId) {
+        return crudVoteRepository.delete(id, userId) != 0;
     }
 
-    public Vote get(int id, int userId, int restaurantId) {
+    public Vote get(int id, int userId) {
         return crudVoteRepository.findById(id)
-                .filter(rest -> rest.getRestaurant().getId() == restaurantId)
-                .filter(rest -> rest.getUser().getId() == userId)
+                .filter(vote -> vote.getUser().getId() == userId)
                 .orElse(null);
     }
 
-    public List<Vote> getAll() {
-        return crudVoteRepository.findAll();
+    public List<Vote> getAll(int userId) {
+        return crudVoteRepository.getAll(userId);
     }
 
-    public Vote getWithUserAndRestaurant(int id, int userId, int restaurantId){
-        return crudVoteRepository.getWithUserAndRestaurant(id,restaurantId,userId);
+    public Vote getWithUserAndRestaurant(int id, int userId, int restaurantId) {
+        return crudVoteRepository.getWithUserAndRestaurant(id, restaurantId, userId);
     }
 }

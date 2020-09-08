@@ -12,16 +12,17 @@ import ru.pavel.diploma.util.DateTimeUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"voteDate", "user_id"}, name = "votes_unique_idx")})
+@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "voteDate"}, name = "votes_unique_idx")})
 public class Vote extends AbstractBaseEntity {
 
     @Column(name = "voteDate", nullable = false)
-    @NotNull
+    @NotNull(groups = {View.ValidatedUI.class, Default.class})
     @JsonView(View.JsonREST.class)
     private LocalDateTime voteDate;
 

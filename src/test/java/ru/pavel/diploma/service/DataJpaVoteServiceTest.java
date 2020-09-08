@@ -31,7 +31,7 @@ public class DataJpaVoteServiceTest extends ru.pavel.diploma.service.AbstractSer
         Vote newVote = getNew();
         newVote.setId(newId);
         VOTE_MATCHER.assertMatch(created, newVote);
-        VOTE_MATCHER.assertMatch(service.get(newId, USER_ID, THE_CASTLE_ID), newVote);
+        VOTE_MATCHER.assertMatch(service.get(newId, USER_ID), newVote);
     }
 
     @Test
@@ -42,31 +42,31 @@ public class DataJpaVoteServiceTest extends ru.pavel.diploma.service.AbstractSer
 
     @Test
     public void delete() throws Exception {
-        service.delete(USER_VOTE_1_ID);
-        assertThrows(NotFoundException.class, () -> service.get(USER_VOTE_1_ID, USER_ID, THE_CASTLE_ID));
+        service.delete(USER_VOTE_1_ID, USER_ID);
+        assertThrows(NotFoundException.class, () -> service.get(USER_VOTE_1_ID, USER_ID));
     }
 
     @Test
     public void deletedNotFound() throws Exception {
-        assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND));
+        assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND, USER_ID));
     }
 
     @Test
     public void get() throws Exception {
-        Vote vote = service.get(USER_VOTE_1_ID, USER_ID, THE_CASTLE_ID);
+        Vote vote = service.get(USER_VOTE_1_ID, USER_ID);
         VOTE_MATCHER.assertMatch(vote, USER_VOTE_1);
     }
 
     @Test
     public void getNotFound() throws Exception {
-        assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND, USER_ID, THE_CASTLE_ID));
+        assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND, USER_ID));
     }
 
     @Test
     public void update() throws Exception {
         Vote updated = VoteTestData.getUpdated();
         service.update(updated, USER_ID, THE_CASTLE_ID);
-        VOTE_MATCHER.assertMatch(service.get(USER_VOTE_1_ID, USER_ID, THE_CASTLE_ID), VoteTestData.getUpdated());
+        VOTE_MATCHER.assertMatch(service.get(USER_VOTE_1_ID, USER_ID), VoteTestData.getUpdated());
     }
 
     @Test
@@ -78,8 +78,8 @@ public class DataJpaVoteServiceTest extends ru.pavel.diploma.service.AbstractSer
 
     @Test
     public void getAll() throws Exception {
-        List<Vote> all = service.getAll();
-        VOTE_MATCHER.assertMatch(all, USER_VOTE_1, ADMIN_VOTE, USER_VOTE_2);
+        List<Vote> all = service.getAll(USER_ID);
+        VOTE_MATCHER.assertMatch(all, USER_VOTE_1, USER_VOTE_2);
     }
 
     @Test

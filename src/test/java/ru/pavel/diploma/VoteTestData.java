@@ -33,6 +33,7 @@ public class VoteTestData {
     public static final Vote USER_VOTE_2 = new Vote(USER_VOTE_2_ID, of(2020, Month.JANUARY, 31, 10, 0));
 
     public static final List<Vote> VOTES = List.of(USER_VOTE_2, ADMIN_VOTE, USER_VOTE_1);
+    public static final List<Vote> USER_VOTES = List.of(USER_VOTE_1, USER_VOTE_2);
 
     public static Vote getNew() {
         return new Vote(null, of(2020, Month.JANUARY, 30, 17, 0));

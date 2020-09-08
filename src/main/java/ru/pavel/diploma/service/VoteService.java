@@ -24,22 +24,22 @@ public class VoteService {
         return repository.save(vote, userId, restaurantId);
     }
 
-    public void delete(int id) {
-        checkNotFoundWithId(repository.delete(id), id);
+    public void delete(int id, int userId) {
+        checkNotFoundWithId(repository.delete(id, userId), id);
     }
 
-    public Vote get(int id, int userId, int restaurantId) {
-        return checkNotFoundWithId(repository.get(id, userId, restaurantId), id);
+    public Vote get(int id, int userId) {
+        return checkNotFoundWithId(repository.get(id, userId), id);
     }
 
-    public List<Vote> getAll() {
-        return repository.getAll();
+    public List<Vote> getAll(int userId) {
+        return repository.getAll(userId);
     }
 
     @Transactional
     public void update(Vote vote, int userId, int restaurantId) {
         Assert.notNull(vote, "vote must not be null");
-        Vote v = repository.get(vote.getId(), userId, restaurantId);
+        Vote v = repository.get(vote.getId(),userId);
         checkNotFoundWithId(v, vote.getId());
         Assert.isTrue(v.getTime().isBefore(LocalTime.of(11,00)), "It's too late to update you vote");
         checkNotFoundWithId(repository.save(vote, userId, restaurantId), vote.id());
