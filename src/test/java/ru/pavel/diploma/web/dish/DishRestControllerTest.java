@@ -23,7 +23,7 @@ import static ru.pavel.diploma.TestUtil.userHttpBasic;
 import static ru.pavel.diploma.UserTestData.*;
 import static ru.pavel.diploma.util.exception.ErrorType.VALIDATION_ERROR;
 
-class MealRestControllerTest extends AbstractControllerTest {
+class DishRestControllerTest extends AbstractControllerTest {
 
     private static final String REST_URL = DishRestController.REST_URL + '/';
 

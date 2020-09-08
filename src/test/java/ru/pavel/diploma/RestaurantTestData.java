@@ -1,5 +1,6 @@
 package ru.pavel.diploma;
 
+import ru.pavel.diploma.model.Dish;
 import ru.pavel.diploma.model.Restaurant;
 
 import java.util.List;
@@ -25,6 +26,8 @@ public class RestaurantTestData {
 
     public static final Restaurant THE_CASTLE = new Restaurant(THE_CASTLE_ID, "THE CASTLE");
     public static final Restaurant RED_SQUARE = new Restaurant(RED_SQUARE_ID, "RED SQUARE");
+
+    public static final List<Restaurant> RESTAURANTS_ALL = List.of(THE_CASTLE, RED_SQUARE);
 
     static {
         THE_CASTLE.setMenu(List.of(HAMBURGER, FRENCH_FRIES));

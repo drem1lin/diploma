@@ -13,17 +13,15 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.pavel.diploma.View;
 import ru.pavel.diploma.model.Dish;
 import ru.pavel.diploma.service.DishService;
-import ru.pavel.diploma.web.SecurityUtil;
 
 import java.net.URI;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = DishRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class DishRestController {
-    static final String REST_URL = "/rest/dishes/";
+    static final String REST_URL = "/rest/dishes";
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 
