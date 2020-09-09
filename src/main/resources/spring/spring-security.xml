@@ -18,6 +18,9 @@
         <csrf disabled="true"/>
     </http>
 
+    <beans:bean class="org.springframework.security.crypto.password.NoOpPasswordEncoder" id="passwordEncoder"/>
+
+    <!--
     <beans:bean class="org.springframework.security.crypto.factory.PasswordEncoderFactories" id="passwordEncoder" factory-method="createDelegatingPasswordEncoder"/>
 
     <http>
@@ -31,9 +34,9 @@
                     authentication-failure-url="/login?error=true"
                     login-processing-url="/spring_security_check"/>
         <logout logout-success-url="/login"/>
-        <!--<csrf disabled="true"/>-->
+        <!- -<csrf disabled="true"/>- ->
     </http>
-
+    -->
     <authentication-manager>
         <authentication-provider user-service-ref="userService">
             <password-encoder ref="passwordEncoder"/>
