@@ -8,10 +8,11 @@ import ru.pavel.diploma.VoteTestData;
 import ru.pavel.diploma.model.Vote;
 import ru.pavel.diploma.util.exception.NotFoundException;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.List;
 
-import static java.time.LocalDateTime.of;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.pavel.diploma.RestaurantTestData.RED_SQUARE_ID;
 import static ru.pavel.diploma.RestaurantTestData.THE_CASTLE_ID;
@@ -37,7 +38,7 @@ public class DataJpaVoteServiceTest extends ru.pavel.diploma.service.AbstractSer
     @Test
     public void duplicateVoteCreate() throws Exception {
         assertThrows(DataAccessException.class, () ->
-                service.create(new Vote(null, of(2020, Month.JANUARY, 30, 10, 0)), USER_ID, THE_CASTLE_ID));
+                service.create(new Vote(null, LocalDate.of(2020, Month.JANUARY, 30), LocalTime.of(10, 0)), USER_ID, THE_CASTLE_ID));
     }
 
     @Test

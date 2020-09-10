@@ -3,6 +3,8 @@ package ru.pavel.diploma;
 import ru.pavel.diploma.model.User;
 import ru.pavel.diploma.model.Vote;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.List;
 
@@ -28,15 +30,15 @@ public class VoteTestData {
     public static final int ADMIN_VOTE_ID = START_SEQ + 8;
     public static final int USER_VOTE_2_ID = START_SEQ + 9;
 
-    public static final Vote USER_VOTE_1 = new Vote(USER_VOTE_1_ID, of(2020, Month.JANUARY, 30, 10, 0));
-    public static final Vote ADMIN_VOTE = new Vote(ADMIN_VOTE_ID, of(2020, Month.JANUARY, 30, 12, 0));
-    public static final Vote USER_VOTE_2 = new Vote(USER_VOTE_2_ID, of(2020, Month.JANUARY, 31, 10, 0));
+    public static final Vote USER_VOTE_1 = new Vote(USER_VOTE_1_ID, LocalDate.of(2020, Month.JANUARY, 30), LocalTime.of(10, 0));
+    public static final Vote ADMIN_VOTE = new Vote(ADMIN_VOTE_ID, LocalDate.of(2020, Month.JANUARY, 30), LocalTime.of(12, 0));
+    public static final Vote USER_VOTE_2 = new Vote(USER_VOTE_2_ID, LocalDate.of(2020, Month.JANUARY, 31), LocalTime.of(10, 0));
 
     public static final List<Vote> VOTES = List.of(USER_VOTE_2, ADMIN_VOTE, USER_VOTE_1);
     public static final List<Vote> USER_VOTES = List.of(USER_VOTE_1, USER_VOTE_2);
 
     public static Vote getNew() {
-        return new Vote(null, of(2020, Month.JANUARY, 30, 17, 0));
+        return new Vote(null, LocalDate.of(2020, Month.JANUARY, 29), LocalTime.of(17, 0));
     }
 
     static {
@@ -51,13 +53,15 @@ public class VoteTestData {
 
     public static Vote getUpdated() {
         Vote updated = new Vote(USER_VOTE_1);
-        updated.setVoteDate(of(2020, Month.JANUARY, 30, 11, 30));
+        updated.setVoteDate(LocalDate.of(2020, Month.JANUARY, 30));
+        updated.setVoteTime(LocalTime.of(11, 30));
         return updated;
     }
 
     public static Vote getLateUpdated() {
         Vote updated = new Vote(ADMIN_VOTE);
-        updated.setVoteDate(of(2020, Month.JANUARY, 30, 11, 30));
+        updated.setVoteDate(LocalDate.of(2020, Month.JANUARY, 30));
+        updated.setVoteTime(LocalTime.of(11, 30));
         return updated;
     }
 }

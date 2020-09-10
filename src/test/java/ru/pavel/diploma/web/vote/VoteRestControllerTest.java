@@ -114,7 +114,7 @@ class VoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void createInvalid() throws Exception {
-        Vote invalid = new Vote(null, null);
+        Vote invalid = new Vote(null, null, null);
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid))
@@ -126,7 +126,7 @@ class VoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void updateInvalid() throws Exception {
-        Vote invalid = new Vote(null, null);
+        Vote invalid = new Vote(null, null, null);
         perform(MockMvcRequestBuilders.put(REST_URL)
                 .param("restaurantId", String.valueOf(THE_CASTLE_ID))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -156,7 +156,7 @@ class VoteRestControllerTest extends AbstractControllerTest {
     @Test
     @Transactional(propagation = Propagation.NEVER)
     void createDuplicate() throws Exception {
-        Vote invalid = new Vote(null, USER_VOTE_2.getVoteDate());
+        Vote invalid = new Vote(null, USER_VOTE_2.getVoteDate(), USER_VOTE_2.getVoteTime());
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .param("restaurantId", String.valueOf(THE_CASTLE_ID))
                 .contentType(MediaType.APPLICATION_JSON)

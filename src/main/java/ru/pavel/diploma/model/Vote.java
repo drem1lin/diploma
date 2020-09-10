@@ -24,7 +24,12 @@ public class Vote extends AbstractBaseEntity {
     @Column(name = "voteDate", nullable = false)
     @NotNull(groups = {View.ValidatedUI.class, Default.class})
     @JsonView(View.JsonREST.class)
-    private LocalDateTime voteDate;
+    private LocalDate voteDate;
+
+    @Column(name = "voteTime", nullable = false)
+    @NotNull(groups = {View.ValidatedUI.class, Default.class})
+    @JsonView(View.JsonREST.class)
+    private LocalTime voteTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -44,29 +49,28 @@ public class Vote extends AbstractBaseEntity {
     }
 
     public Vote(Vote v) {
-        this(v.getId(), v.getVoteDate());
+        this(v.getId(), v.getVoteDate(), v.getVoteTime());
     }
 
-    public Vote(Integer id, LocalDateTime voteDate) {
+    public Vote(Integer id, LocalDate voteDate, LocalTime voteTime) {
         super(id);
         this.voteDate = voteDate;
+        this.voteTime = voteTime;
     }
 
-    public LocalDateTime getVoteDate() {
+    public LocalDate getVoteDate() {
         return voteDate;
     }
 
-    public LocalDate getDate() {
-        return voteDate.toLocalDate();
+    public LocalTime getVoteTime() {
+        return voteTime;
     }
 
-    public LocalTime getTime() {
-        return voteDate.toLocalTime();
-    }
-
-    public void setVoteDate(LocalDateTime voteDate) {
+    public void setVoteDate(LocalDate voteDate) {
         this.voteDate = voteDate;
     }
+
+    public void setVoteTime(LocalTime voteTime) {this.voteTime = voteTime; }
 
     public Restaurant getRestaurant() {
         return restaurant;
@@ -84,7 +88,7 @@ public class Vote extends AbstractBaseEntity {
         this.user = user;
     }
 
-    @JsonGetter
+    /*@JsonGetter
     @JsonView(View.JsonUI.class)
     @JsonFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     public LocalDateTime getDateTimeUI() {
@@ -94,7 +98,7 @@ public class Vote extends AbstractBaseEntity {
     @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     public void setDateTimeUI(LocalDateTime dateTime) {
         this.voteDate = dateTime;
-    }
+    }*/
 
     @Override
     public String toString() {

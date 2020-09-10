@@ -41,7 +41,7 @@ public class VoteService {
         Assert.notNull(vote, "vote must not be null");
         Vote v = repository.get(vote.getId(),userId);
         checkNotFoundWithId(v, vote.getId());
-        Assert.isTrue(v.getTime().isBefore(LocalTime.of(11,00)), "It's too late to update you vote");
+        Assert.isTrue(v.getVoteTime().isBefore(LocalTime.of(11, 0)), "It's too late to update you vote");
         checkNotFoundWithId(repository.save(vote, userId, restaurantId), vote.id());
     }
 
