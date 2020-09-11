@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping(ProfileRestController.REST_URL)
+@RequestMapping(value = ProfileRestController.REST_URL)
 public class ProfileRestController extends AbstractUserController {
     static final String REST_URL = "/rest/profile";
 
@@ -43,12 +43,7 @@ public class ProfileRestController extends AbstractUserController {
         super.update(user, authUser.getId());
     }
 
-    @GetMapping(value = "/text")
-    public String testUTF() {
-        return "Русский текст";
-    }
-
-    @GetMapping("/with-votes")
+    @GetMapping(value = "/with-votes", produces = MediaType.APPLICATION_JSON_VALUE)
     public User getWithVotes(@AuthenticationPrincipal AuthorizedUser authUser) {
         return super.getWithVotes(authUser.getId());
     }

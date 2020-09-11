@@ -34,14 +34,6 @@ class JsonUtilTest {
     }
 
     @Test
-    public void writeWithView() throws Exception {
-        ObjectWriter uiWriter = JacksonObjectMapper.getMapper().writerWithView(View.JsonUI.class);
-        String json = JsonUtil.writeValue(ADMIN_VOTE, uiWriter);
-        System.out.println(json);
-        assertThat(json, containsString("dateTimeUI"));
-    }
-
-    @Test
     void writeOnlyAccess() throws Exception {
         String json = JsonUtil.writeValue(UserTestData.USER);
         System.out.println(json);
