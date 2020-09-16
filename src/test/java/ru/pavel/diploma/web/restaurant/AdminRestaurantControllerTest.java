@@ -20,13 +20,10 @@ import static ru.pavel.diploma.RestaurantTestData.*;
 import static ru.pavel.diploma.TestUtil.readFromJson;
 import static ru.pavel.diploma.TestUtil.userHttpBasic;
 import static ru.pavel.diploma.UserTestData.ADMIN;
-import static ru.pavel.diploma.UserTestData.USER;
 import static ru.pavel.diploma.util.exception.ErrorType.VALIDATION_ERROR;
 
-class RestaurantRestControllerTest extends AbstractControllerTest {
-
-    private static final String REST_URL = RestaurantRestController.REST_URL + '/';
-    private static final String REST_ADMIN_URL = RestaurantRestController.REST_ADMIN_URL + '/';
+public class AdminRestaurantControllerTest extends AbstractControllerTest {
+    private static final String REST_URL = AdminRestaurantController.REST_URL + '/';
 
     @Autowired
     private RestaurantService restaurantService;
@@ -34,7 +31,7 @@ class RestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     void get() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + THE_CASTLE_ID)
-                .with(userHttpBasic(USER)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -50,14 +47,14 @@ class RestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     void getNotFound() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + RestaurantTestData.NOT_FOUND)
-                .with(userHttpBasic(USER)))
+                .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_ADMIN_URL + THE_CASTLE_ID)
+        perform(MockMvcRequestBuilders.delete(REST_URL + THE_CASTLE_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isNoContent());
         assertThrows(NotFoundException.class, () -> restaurantService.get(THE_CASTLE_ID));
@@ -65,7 +62,7 @@ class RestaurantRestControllerTest extends AbstractControllerTest {
 
     @Test
     void deleteNotFound() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_ADMIN_URL + RestaurantTestData.NOT_FOUND)
+        perform(MockMvcRequestBuilders.delete(REST_URL + RestaurantTestData.NOT_FOUND)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isUnprocessableEntity());
     }
@@ -73,7 +70,7 @@ class RestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     void update() throws Exception {
         Restaurant updated = RestaurantTestData.getUpdated();
-        perform(MockMvcRequestBuilders.put(REST_ADMIN_URL)
+        perform(MockMvcRequestBuilders.put(REST_URL + RED_SQUARE_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated))
                 .with(userHttpBasic(ADMIN)))
@@ -85,7 +82,7 @@ class RestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     void createWithLocation() throws Exception {
         Restaurant restaurant = RestaurantTestData.getNew();
-        ResultActions action = perform(MockMvcRequestBuilders.post(REST_ADMIN_URL)
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(restaurant))
                 .with(userHttpBasic(ADMIN)));
@@ -100,7 +97,7 @@ class RestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     void getAll() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL)
-                .with(userHttpBasic(USER)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -110,7 +107,7 @@ class RestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     void getWithDishes() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + THE_CASTLE_ID + "/with-dishes")
-                .with(userHttpBasic(USER)))
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -120,7 +117,7 @@ class RestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     void createInvalid() throws Exception {
         Restaurant invalid = new Restaurant(null, null);
-        perform(MockMvcRequestBuilders.post(REST_ADMIN_URL)
+        perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid))
                 .with(userHttpBasic(ADMIN)))
@@ -132,7 +129,7 @@ class RestaurantRestControllerTest extends AbstractControllerTest {
     @Test
     void updateInvalid() throws Exception {
         Restaurant invalid = new Restaurant(THE_CASTLE_ID, null);
-        perform(MockMvcRequestBuilders.put(REST_ADMIN_URL)
+        perform(MockMvcRequestBuilders.put(REST_URL+THE_CASTLE_ID)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid))
                 .with(userHttpBasic(ADMIN)))
