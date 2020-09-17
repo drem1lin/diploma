@@ -9,15 +9,11 @@
 #### get admin profile with votes
 curl -s http://localhost:8080/diploma_war_exploded/rest/admin/users/100001/with-votes --user admin@gmail.com:admin
 
-!!!#### register Users
-`curl -s -i -X POST -d '{"name":"New User","email":"test@mail.ru","password":"test-password"}' -H 'Content-Type:application/json;charset=UTF-8' http://localhost:8080/diploma_war_exploded/rest/profile/register`
-curl -H 'Content-Type: application/json;charset=UTF-8' -s -XPOST http://localhost:8080/diploma_war_exploded/rest/profile/register -d '{"name":"New User","email":"test@mail.ru","password":"test-password"}'
-
 #### get Profile
 `curl -s http://localhost:8080/diploma_war_exploded/rest/profile --user user@yandex.ru:password`
 
 #### get all restaurants
-'curl -s http://localhost:8080/diploma_war_exploded/rest/restaurant --user admin@gmail.com:admin'
+'curl -s http://localhost:8080/diploma_war_exploded/rest/restaurant/ --user admin@gmail.com:admin'
 
 #### get restaurant
 'curl -s http://localhost:8080/diploma_war_exploded/rest/restaurant/100002 --user admin@gmail.com:admin'
@@ -25,7 +21,7 @@ curl -H 'Content-Type: application/json;charset=UTF-8' -s -XPOST http://localhos
 #### get restaurant with dishes
 'curl -s http://localhost:8080/diploma_war_exploded/rest/restaurant/100002/with-dishes --user admin@gmail.com:admin'
 
-#### get admin votes
+#### get votes
 'curl -s http://localhost:8080/diploma_war_exploded/rest/vote --user user@yandex.ru:password'
 
 #### get vote
